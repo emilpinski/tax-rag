@@ -1,14 +1,16 @@
 # Tax RAG
 
-> RAG demo — semantic document search engine — semantic search through any document base, with citations and sources.
+![Status](https://img.shields.io/badge/Status-Demo-blue)
 
-![Screenshot](https://raw.githubusercontent.com/emilpinski/tax-rag/main/docs/screenshots/Zrzut_ekranu_25-4-2026_121458_rag-demo-podatki.vercel.app.jpeg)
+> RAG demo on Polish tax documents — query tax law like ChatGPT, with citations and sources.
+
+![Screenshot](./screenshot.png)
 
 ## What is it
 
 Tax-RAG is a proof-of-concept Retrieval-Augmented Generation (RAG) system built on Polish tax documents: KIS interpretations, ISAP acts, parliamentary legislation, and Ministry of Finance documents. The user asks a question in Polish, the system performs semantic search across the document database and responds with precise citations and links to sources.
 
-The project demonstrates RAG technology for businesses with document bases, internal document bases, and knowledge management who want to deploy their own AI assistant on internal documents.
+The project demonstrates RAG technology for law firms, accounting offices, and tax advisors who want to deploy their own AI assistant on internal documents.
 
 ## Features
 
@@ -16,7 +18,7 @@ The project demonstrates RAG technology for businesses with document bases, inte
 - **Inline citations and sources** — every answer includes document numbers, articles, and links to acts
 - **Multi-source ingestion** — KIS scraper (interpretations), ISAP (legal acts), Sejm RP, PDF documents
 - **SSE streaming** — responses streamed token by token via Server-Sent Events
-- **Claude AI** — OpenRouter API (claude-sonnet) as the response generation model
+- **OpenRouter API** — OpenRouter API (claude-sonnet) as the response generation model
 - **Knowledge base panel** — browse indexed documents, statuses, statistics
 - **Dark/light mode** — next-themes, responsive design
 - **Admin panel** — knowledge base management, re-ingestion, analytics
@@ -59,15 +61,15 @@ npm run scrape:sejm
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | ✅ |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase public key | ✅ |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service key (ingestion) | ✅ |
-| `OPENROUTER_API_KEY` | OpenRouter API key | ✅ |
-| `COHERE_API_KEY` | Cohere key (reranking) | ✅ |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | yes |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase public key | yes |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service key (ingestion) | yes |
+| `OPENROUTER_API_KEY` | OpenRouter API key | yes |
+| `COHERE_API_KEY` | Cohere key (reranking) | yes |
 
 ## Status
 
-Demo — [tax-rag.vercel.app](https://tax-rag.vercel.app)
+Demo — [rag-demo-mu.vercel.app](https://rag-demo-mu.vercel.app)
 
 ---
 Built by [Emil Piński](https://emilpinski.pl)
