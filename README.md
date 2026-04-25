@@ -16,7 +16,7 @@ The project demonstrates RAG technology for law firms, accounting offices, and t
 - **Inline citations and sources** — every answer includes document numbers, articles, and links to acts
 - **Multi-source ingestion** — KIS scraper (interpretations), ISAP (legal acts), Sejm RP, PDF documents
 - **SSE streaming** — responses streamed token by token via Server-Sent Events
-- **Claude AI** — Anthropic claude-sonnet as the response generation model
+- **Claude AI** — OpenRouter API (claude-sonnet) as the response generation model
 - **Knowledge base panel** — browse indexed documents, statuses, statistics
 - **Dark/light mode** — next-themes, responsive design
 - **Admin panel** — knowledge base management, re-ingestion, analytics
@@ -28,7 +28,7 @@ The project demonstrates RAG technology for law firms, accounting offices, and t
 |-------|-----------|
 | Frontend | Next.js 16, React 19, TypeScript, Tailwind CSS |
 | Backend | Next.js API Routes, SSE streaming |
-| AI | Anthropic Claude (claude-sonnet) |
+| AI | OpenRouter API (claude-sonnet) |
 | RAG | Supabase pgvector + Cohere Rerank |
 | Database | Supabase (PostgreSQL + pgvector) |
 | Scraping | Cheerio (KIS, ISAP, Sejm) |
