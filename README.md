@@ -1,26 +1,73 @@
-# Polish Tax RAG
+# tax-rag
 
-> Ask questions about Polish tax law in plain language. Get answers with cited sources.
+> Demo RAG na polskich dokumentach podatkowych — pytaj o prawo podatkowe jak chatGPT, z cytatami i źródłami.
 
-**Status:** Live — deployed for a legal firm
+![Screenshot](./screenshot.png)
+
+## Co to jest
+
+Tax-RAG to proof-of-concept systemu Retrieval-Augmented Generation (RAG) zbudowanego na polskich dokumentach podatkowych: interpretacjach KIS, aktach ISAP, przepisach sejmowych i dokumentach MF. Użytkownik zadaje pytanie po polsku, system wyszukuje semantycznie w bazie dokumentów i odpowiada z precyzyjnymi cytatami i linkami do źródeł.
+
+Projekt jest demonstracją technologii RAG dla firm prawnych, biur rachunkowych i doradców podatkowych, które chcą wdrożyć własnego asystenta AI na wewnętrznych dokumentach.
+
+## Funkcje
+
+- **Semantyczne wyszukiwanie** — embeddingi Supabase pgvector, reranking Cohere dla najlepszej trafności
+- **Inline cytaty i źródła** — każda odpowiedź zawiera numery dokumentów, artykuły i linki do aktów
+- **Wieloźródłowy ingestion** — scraper KIS (interpretacje), ISAP (akty prawne), Sejm RP, dokumenty PDF
+- **Streaming SSE** — odpowiedzi streamowane token po tokenie przez Server-Sent Events
+- **Claude AI** — Anthropic claude-sonnet jako model generujący odpowiedzi
+- **Knowledge base panel** — przeglądanie zaindeksowanych dokumentów, statusy, statystyki
+- **Dark/light mode** — next-themes, responsywny design
+- **Admin panel** — zarządzanie bazą wiedzy, reingest, analityki
+- **Export do DOCX/PDF** — pobieranie odpowiedzi jako dokumenty
+
+## Stack
+
+| Warstwa | Technologia |
+|---------|-------------|
+| Frontend | Next.js 16, React 19, TypeScript, Tailwind CSS |
+| Backend | Next.js API Routes, SSE streaming |
+| AI | Anthropic Claude (claude-sonnet) |
+| RAG | Supabase pgvector + Cohere Rerank |
+| Baza danych | Supabase (PostgreSQL + pgvector) |
+| Scraping | Cheerio (KIS, ISAP, Sejm) |
+| PDF | pdf-parse, pdfjs-dist |
+| Export | docx, file-saver |
+| State | Zustand |
+| Animacje | Framer Motion |
+| Deploy | Vercel |
+
+## Uruchomienie
+
+```bash
+git clone https://github.com/emilpinski/tax-rag
+cd tax-rag
+npm install
+cp .env.example .env.local
+# Uzupelnij zmienne srodowiskowe
+npm run dev
+
+# Ingestion dokumentow:
+npm run ingest
+npm run scrape:kis
+npm run scrape:isap
+npm run scrape:sejm
+```
+
+## Zmienne środowiskowe
+
+| Zmienna | Opis | Wymagana |
+|---------|------|----------|
+| `NEXT_PUBLIC_SUPABASE_URL` | URL projektu Supabase | ✅ |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Klucz publiczny Supabase | ✅ |
+| `SUPABASE_SERVICE_ROLE_KEY` | Klucz serwisowy (ingestion) | ✅ |
+| `ANTHROPIC_API_KEY` | Klucz API Claude AI | ✅ |
+| `COHERE_API_KEY` | Klucz Cohere (reranking) | ✅ |
+
+## Status
+
+Demo — [tax-rag.vercel.app](https://tax-rag.vercel.app)
 
 ---
-
-## What it does
-
-- Natural language Q&A over Polish tax documents (VAT, CIT, PIT, KSeF)
-- Answers include inline citations linking directly to source fragments
-- Admin panel for document upload and management
-- Hybrid search combining vector similarity and full-text search
-- Confidence score shown per answer based on retrieval quality
-
-## How it works
-
-- **Hybrid retrieval**: Combines HyDE (hypothetical document embeddings), pgvector ANN similarity search, Postgres FTS, and RRF (reciprocal rank fusion) — Cohere reranker selects final top candidates
-- **Ingestion pipeline**: Uploads PDF/DOCX documents, chunks by legal section with metadata tags (category, year, authority), embeds with OpenAI text-embedding-3-small, stores in Supabase pgvector
-- **Streaming generation**: Routes enriched query + RAG context to LLM via OpenRouter with parallel follow-up suggestion generation; SSE streaming for fast first-token response
-- **Rate limiting and safety**: SHA256 IP-based rate limiting (15 req/hour), SSRF guards, 500-char query limit
-
-## Tech Stack
-
-![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white) ![Supabase](https://img.shields.io/badge/Supabase_pgvector-3ECF8E?logo=supabase&logoColor=white) ![Cohere](https://img.shields.io/badge/Cohere_Reranker-D4A27F) ![OpenRouter](https://img.shields.io/badge/OpenRouter-grey) ![OpenAI](https://img.shields.io/badge/OpenAI-412991?logo=openai&logoColor=white)
+Built by [Emil Piński](https://emilpinski.pl)
