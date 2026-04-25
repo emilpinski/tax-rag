@@ -2,25 +2,23 @@
 
 ![Status](https://img.shields.io/badge/Status-Demo-blue)
 
-> RAG demo on Polish tax documents — query tax law like ChatGPT, with citations and sources.
-
-![Screenshot](screenshot.png)
+> RAG demo on Polish tax documents — query tax law in natural language, get answers with citations.
 
 ## What is it
 
-Tax-RAG is a proof-of-concept Retrieval-Augmented Generation (RAG) system built on Polish tax documents: KIS interpretations, ISAP acts, parliamentary legislation, and Ministry of Finance documents. The user asks a question in Polish, the system performs semantic search across the document database and responds with precise citations and links to sources.
+Tax-RAG is a proof-of-concept Retrieval-Augmented Generation system built on Polish tax documents: KIS interpretations, ISAP legislative acts, parliamentary legislation, and Ministry of Finance documents. The user asks a question in Polish, the system performs semantic search across the document database and responds with precise citations and links to source documents.
 
-The project demonstrates RAG technology for law firms, accounting offices, and tax advisors who want to deploy their own AI assistant on internal documents.
+The project demonstrates RAG architecture for law firms, accounting offices, and tax advisors considering deployment of AI assistants on internal document collections.
 
 ## Features
 
-- **Semantic search** — Supabase pgvector embeddings, Cohere reranking for best relevance
-- **Inline citations and sources** — every answer includes document numbers, articles, and links to acts
-- **Multi-source ingestion** — KIS scraper (interpretations), ISAP (legal acts), Sejm RP, PDF documents
+- **Semantic search** — Supabase pgvector embeddings with Cohere reranking for relevance
+- **Inline citations** — every answer includes document numbers, articles, and links to source acts
+- **Multi-source ingestion** — KIS interpretations, ISAP legal acts, Sejm RP, PDF documents
 - **SSE streaming** — responses streamed token by token via Server-Sent Events
-- **OpenRouter API** — OpenRouter API (claude-sonnet) as the response generation model
+- **Generation** — Anthropic Claude Sonnet via OpenRouter
 - **Knowledge base panel** — browse indexed documents, statuses, statistics
-- **Dark/light mode** — next-themes, responsive design
+- **Dark/light mode** — responsive design
 - **Admin panel** — knowledge base management, re-ingestion, analytics
 - **DOCX/PDF export** — download answers as documents
 
@@ -28,9 +26,9 @@ The project demonstrates RAG technology for law firms, accounting offices, and t
 
 | Layer | Technology |
 |-------|-----------|
-| Frontend | Next.js 16, React 19, TypeScript, Tailwind CSS |
+| Frontend | Next.js, React, TypeScript, Tailwind CSS |
 | Backend | Next.js API Routes, SSE streaming |
-| AI | OpenRouter API (claude-sonnet) |
+| AI | Anthropic Claude Sonnet via OpenRouter |
 | RAG | Supabase pgvector + Cohere Rerank |
 | Database | Supabase (PostgreSQL + pgvector) |
 | Scraping | Cheerio (KIS, ISAP, Sejm) |
@@ -40,44 +38,19 @@ The project demonstrates RAG technology for law firms, accounting offices, and t
 | Animations | Framer Motion |
 | Deploy | Vercel |
 
-## Getting Started
-
-```bash
-git clone https://github.com/emilpinski/tax-rag
-cd tax-rag
-npm install
-cp .env.example .env.local
-# Fill in environment variables
-npm run dev
-
-# Document ingestion:
-npm run ingest
-npm run scrape:kis
-npm run scrape:isap
-npm run scrape:sejm
-```
-
-## Environment Variables
-
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | yes |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase public key | yes |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service key (ingestion) | yes |
-| `OPENROUTER_API_KEY` | OpenRouter API key | yes |
-| `COHERE_API_KEY` | Cohere key (reranking) | yes |
-
 ## Status
 
-Demo — [rag-demo-mu.vercel.app](https://rag-demo-mu.vercel.app)
+Demo — [rag-demo-podatki.vercel.app](https://rag-demo-podatki.vercel.app)
 
 ---
 Built by [Emil Piński](https://emilpinski.pl)
 
+> Source code is private. [Contact for collaboration](mailto:emilpinskidev@gmail.com)
+
 ## Screenshots
 
-![Screenshot](screenshot.png)
-![Screenshot](screenshot.png)
-![Screenshot](screenshot.png)
-![Screenshot](screenshot.png)
-![Screenshot](screenshot.png)
+![Tax question interface](docs/screenshots/Zrzut_ekranu_25-4-2026_121458_rag-demo-podatki.vercel.app.jpeg)
+![Answer with citations](docs/screenshots/Zrzut_ekranu_25-4-2026_121510_rag-demo-podatki.vercel.app.jpeg)
+![Source document panel](docs/screenshots/Zrzut_ekranu_25-4-2026_121531_rag-demo-podatki.vercel.app.jpeg)
+![Knowledge base browser](docs/screenshots/Zrzut_ekranu_25-4-2026_121540_rag-demo-podatki.vercel.app.jpeg)
+![Admin ingestion panel](docs/screenshots/Zrzut_ekranu_25-4-2026_121634_rag-demo-podatki.vercel.app.jpeg)
