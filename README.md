@@ -73,3 +73,11 @@ Demo — [rag-demo-mu.vercel.app](https://rag-demo-mu.vercel.app)
 
 ---
 Built by [Emil Piński](https://emilpinski.pl)
+
+## Screenshots
+
+![Screenshot 1](docs/screenshots/Zrzut_ekranu_25-4-2026_121458_rag-demo-podatki.vercel.app.jpeg)
+![Screenshot 2](docs/screenshots/Zrzut_ekranu_25-4-2026_121510_rag-demo-podatki.vercel.app.jpeg)
+![Screenshot 3](docs/screenshots/Zrzut_ekranu_25-4-2026_121531_rag-demo-podatki.vercel.app.jpeg)
+![Screenshot 4](docs/screenshots/Zrzut_ekranu_25-4-2026_121540_rag-demo-podatki.vercel.app.jpeg)
+![Screenshot 5](docs/screenshots/Zrzut_ekranu_25-4-2026_121634_rag-demo-podatki.vercel.app.jpeg)
