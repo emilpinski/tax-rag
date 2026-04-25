@@ -1,14 +1,14 @@
 # Tax RAG
 
-> RAG demo on Polish tax documents — query tax law like ChatGPT, with citations and sources.
+> RAG demo — semantic document search engine — semantic search through any document base, with citations and sources.
 
-![Screenshot](./screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/emilpinski/tax-rag/main/docs/screenshots/Zrzut_ekranu_25-4-2026_121458_rag-demo-podatki.vercel.app.jpeg)
 
 ## What is it
 
 Tax-RAG is a proof-of-concept Retrieval-Augmented Generation (RAG) system built on Polish tax documents: KIS interpretations, ISAP acts, parliamentary legislation, and Ministry of Finance documents. The user asks a question in Polish, the system performs semantic search across the document database and responds with precise citations and links to sources.
 
-The project demonstrates RAG technology for law firms, accounting offices, and tax advisors who want to deploy their own AI assistant on internal documents.
+The project demonstrates RAG technology for businesses with document bases, internal document bases, and knowledge management who want to deploy their own AI assistant on internal documents.
 
 ## Features
 
