@@ -1,69 +1,69 @@
-# tax-rag
+# Tax RAG
 
-> Demo RAG na polskich dokumentach podatkowych — pytaj o prawo podatkowe jak chatGPT, z cytatami i źródłami.
+> RAG demo on Polish tax documents — query tax law like ChatGPT, with citations and sources.
 
 ![Screenshot](./screenshot.png)
 
-## Co to jest
+## What is it
 
-Tax-RAG to proof-of-concept systemu Retrieval-Augmented Generation (RAG) zbudowanego na polskich dokumentach podatkowych: interpretacjach KIS, aktach ISAP, przepisach sejmowych i dokumentach MF. Użytkownik zadaje pytanie po polsku, system wyszukuje semantycznie w bazie dokumentów i odpowiada z precyzyjnymi cytatami i linkami do źródeł.
+Tax-RAG is a proof-of-concept Retrieval-Augmented Generation (RAG) system built on Polish tax documents: KIS interpretations, ISAP acts, parliamentary legislation, and Ministry of Finance documents. The user asks a question in Polish, the system performs semantic search across the document database and responds with precise citations and links to sources.
 
-Projekt jest demonstracją technologii RAG dla firm prawnych, biur rachunkowych i doradców podatkowych, które chcą wdrożyć własnego asystenta AI na wewnętrznych dokumentach.
+The project demonstrates RAG technology for law firms, accounting offices, and tax advisors who want to deploy their own AI assistant on internal documents.
 
-## Funkcje
+## Features
 
-- **Semantyczne wyszukiwanie** — embeddingi Supabase pgvector, reranking Cohere dla najlepszej trafności
-- **Inline cytaty i źródła** — każda odpowiedź zawiera numery dokumentów, artykuły i linki do aktów
-- **Wieloźródłowy ingestion** — scraper KIS (interpretacje), ISAP (akty prawne), Sejm RP, dokumenty PDF
-- **Streaming SSE** — odpowiedzi streamowane token po tokenie przez Server-Sent Events
-- **Claude AI** — Anthropic claude-sonnet jako model generujący odpowiedzi
-- **Knowledge base panel** — przeglądanie zaindeksowanych dokumentów, statusy, statystyki
-- **Dark/light mode** — next-themes, responsywny design
-- **Admin panel** — zarządzanie bazą wiedzy, reingest, analityki
-- **Export do DOCX/PDF** — pobieranie odpowiedzi jako dokumenty
+- **Semantic search** — Supabase pgvector embeddings, Cohere reranking for best relevance
+- **Inline citations and sources** — every answer includes document numbers, articles, and links to acts
+- **Multi-source ingestion** — KIS scraper (interpretations), ISAP (legal acts), Sejm RP, PDF documents
+- **SSE streaming** — responses streamed token by token via Server-Sent Events
+- **Claude AI** — Anthropic claude-sonnet as the response generation model
+- **Knowledge base panel** — browse indexed documents, statuses, statistics
+- **Dark/light mode** — next-themes, responsive design
+- **Admin panel** — knowledge base management, re-ingestion, analytics
+- **DOCX/PDF export** — download answers as documents
 
 ## Stack
 
-| Warstwa | Technologia |
-|---------|-------------|
+| Layer | Technology |
+|-------|-----------|
 | Frontend | Next.js 16, React 19, TypeScript, Tailwind CSS |
 | Backend | Next.js API Routes, SSE streaming |
 | AI | Anthropic Claude (claude-sonnet) |
 | RAG | Supabase pgvector + Cohere Rerank |
-| Baza danych | Supabase (PostgreSQL + pgvector) |
+| Database | Supabase (PostgreSQL + pgvector) |
 | Scraping | Cheerio (KIS, ISAP, Sejm) |
 | PDF | pdf-parse, pdfjs-dist |
 | Export | docx, file-saver |
 | State | Zustand |
-| Animacje | Framer Motion |
+| Animations | Framer Motion |
 | Deploy | Vercel |
 
-## Uruchomienie
+## Getting Started
 
 ```bash
 git clone https://github.com/emilpinski/tax-rag
 cd tax-rag
 npm install
 cp .env.example .env.local
-# Uzupelnij zmienne srodowiskowe
+# Fill in environment variables
 npm run dev
 
-# Ingestion dokumentow:
+# Document ingestion:
 npm run ingest
 npm run scrape:kis
 npm run scrape:isap
 npm run scrape:sejm
 ```
 
-## Zmienne środowiskowe
+## Environment Variables
 
-| Zmienna | Opis | Wymagana |
-|---------|------|----------|
-| `NEXT_PUBLIC_SUPABASE_URL` | URL projektu Supabase | ✅ |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Klucz publiczny Supabase | ✅ |
-| `SUPABASE_SERVICE_ROLE_KEY` | Klucz serwisowy (ingestion) | ✅ |
-| `ANTHROPIC_API_KEY` | Klucz API Claude AI | ✅ |
-| `COHERE_API_KEY` | Klucz Cohere (reranking) | ✅ |
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | ✅ |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase public key | ✅ |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service key (ingestion) | ✅ |
+| `ANTHROPIC_API_KEY` | Claude AI API key | ✅ |
+| `COHERE_API_KEY` | Cohere key (reranking) | ✅ |
 
 ## Status
 
