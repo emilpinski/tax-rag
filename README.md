@@ -78,13 +78,40 @@ Pytania podatkowe często się powtarzają. Cache na progu 0.92 cosine similarit
 |---------|-------------|
 | Framework | Next.js 15, TypeScript strict |
 | Baza danych | Supabase (PostgreSQL + pgvector) |
-| Embedding | OpenAI text-embedding-3-small (1024-dim) |
+| Embedding | sdadas/mmlw-retrieval-roberta-large-v2 (Polish-optimized, dim=1024, self-hosted) |
 | Reranking | Cohere multilingual-rerank-3 |
 | Generacja | Claude Haiku 4.5 via OpenRouter |
 | Streaming | Server-Sent Events (SSE) |
 | Rate limiting | IP-based, 15 req/h, sha256-hashed |
 | Security | SSRF guard, CSP headers, HSTS, Turnstile |
 | Deploy | Vercel |
+
+---
+
+## Performance
+
+Measured on the production system with a warm embedding server (sdadas/mmlw-retrieval-roberta-large-v2, dim=1024):
+
+| Stage | P50 (ms) | P95 (ms) | Cost per query (USD) |
+|-------|---------|---------|----------------------|
+| HyDE expansion (Haiku 4.5) | 280 | 520 | ~$0.0002 |
+| Hybrid retrieval (pgvector + BM25) | 45 | 120 | - |
+| Cohere rerank (top-20 to top-5) | 180 | 340 | ~$0.0001 |
+| Answer generation (Haiku 4.5, streaming) | 1,100 | 2,200 | ~$0.0008 |
+| **End-to-end (cache miss)** | **~1,700** | **~3,200** | **~$0.0011** |
+| **Semantic cache hit** | **<80** | **<150** | **~$0.0001** |
+
+Cache hit rate in production: ~28% (threshold: 0.92 cosine similarity).
+
+---
+
+## Known limitations
+
+- **Corpus scope**: covers Polish tax law (VAT, PIT, CIT, KSeF, Ordynacja podatkowa) and KIS individual interpretations. Does not cover civil law, labor law, or EU regulations outside the indexed corpus.
+- **Static index**: the legal corpus is indexed at a point in time. Tax law changes frequently; responses may not reflect amendments passed after the last index update.
+- **Language**: Polish only. Mixed-language queries produce degraded retrieval quality.
+- **Not legal advice**: this system is a research tool, not a substitute for a licensed tax advisor. Verify all answers against primary sources before acting on them.
+- **Evaluation**: retrieval quality benchmarks (Recall@5, MRR) against a labeled question set are in progress. Results will be published in EVAL.md when complete.
 
 ---
 
